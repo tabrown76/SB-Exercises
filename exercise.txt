@@ -1,0 +1,11 @@
+//1
+let will let you reassign a variable but not redeclare it; you can do both with variable
+
+//2
+you cannot redeclare OR reassign w/const but you may w/var
+
+//3
+you can reassign w/let
+
+//4
+"hoisting" means your variables get declared at the beginning of your document and you can access them, even tho they will be undefined, before they are initialized
