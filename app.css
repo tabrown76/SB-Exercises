@@ -1,0 +1,22 @@
+body {
+    background-color: black;
+}
+
+h1 {
+    color: white;
+}
+
+#search-box {
+    margin: 0 auto;
+    display: block;
+}
+
+#search-btn {
+    margin: 0 auto;
+    display: block;
+}
+
+#delete {
+    margin: 0 auto;
+    display: block;
+}
