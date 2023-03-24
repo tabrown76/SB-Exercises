@@ -6,6 +6,10 @@ h1 {
     color: white;
 }
 
+.container {
+    margin: 10px;
+}
+
 #search-box {
     margin: 0 auto;
     display: block;
