@@ -4,7 +4,6 @@
 let storyList;
 
 /** Get and show stories when site first loads. */
-
 async function getAndShowStoriesOnStart() {
   console.log("Getting and showing stories on start");
   storyList = await StoryList.getStories();
@@ -14,12 +13,10 @@ async function getAndShowStoriesOnStart() {
 }
 
 /**
- * A render method to render HTML for an individual Story instance
- * - story: an instance of Story
- *
- * Returns the markup for the story.
- */
-
+* A render method to render HTML for an individual Story instance
+* - story: an instance of Story
+* Returns the markup for the story.
+*/
 function generateStoryMarkup(story) {
   // Check if the story is in the user's favorites list
   const isFavorite = currentUser
@@ -48,6 +45,10 @@ function generateStoryMarkup(story) {
     `);
 }
 
+/**
+*Adds the "fas" or "far" class to the star icons in each story on the page
+*based on whether the story is in the user's favorites list or not.
+*/
 function addFavoriteClassToStories() {
   const favoriteStoryIds = new Set(currentUser.favorites.map(story => story.storyId));
 
@@ -63,7 +64,6 @@ function addFavoriteClassToStories() {
 }
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
-
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
 
@@ -80,7 +80,12 @@ function putStoriesOnPage() {
 
 const $submitStoryForm = $("#submit-story-form");
 
-
+/**
+Handle submission of the submit story form.
+@param {Event} evt - The event object representing the form submission.
+Gets data from the form, calls the addStory method of the StoryList instance,
+and adds the new story to the list of stories on the page.
+*/
 async function submitStory(evt) {
   console.debug("submitStory", evt);
   evt.preventDefault();
@@ -130,6 +135,10 @@ async function toggleStoryFavorite(evt) {
   saveFavoritesToLocalStorage();
 }
 
+/**
+Generate HTML markup for the favorite stories and display them on the page.
+@function
+*/
 function putFavoriteStoriesOnPage() {
   console.debug("putFavoriteStoriesOnPage");
 
@@ -143,6 +152,12 @@ function putFavoriteStoriesOnPage() {
   $favoritedStoriesList.show();
 }
 
+/**
+Handles click on "favorites" in navbar by hiding all page components except for
+a list of the user's favorited stories.
+@param {Event} evt - The click event
+@returns {undefined}
+*/
 function navFavoritesClick(evt) {
   console.debug("navFavoritesClick", evt);
   hidePageComponents();
@@ -151,6 +166,11 @@ function navFavoritesClick(evt) {
 
 $body.on("click", "#nav-favorites", navFavoritesClick);
 
+/**
+Removes a story from the story list and the DOM when the trash icon is clicked.
+@param {event} evt - The event object for the click event.
+@returns {undefined}
+*/
 async function deleteStory(evt) {
   if ($(evt.target).hasClass("fa-trash-alt")) {
     const $story = $(evt.target).closest("li");

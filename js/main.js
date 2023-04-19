@@ -1,7 +1,6 @@
 "use strict";
 
 // So we don't have to keep re-finding things on page, find DOM elements once:
-
 const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
@@ -20,7 +19,6 @@ const $navLogOut = $("#nav-logout");
  * is a useful function that hides pretty much everything on the page. After
  * calling this, individual components can re-show just what they want.
  */
-
 function hidePageComponents() {
   const components = [
     $allStoriesList,
@@ -33,7 +31,6 @@ function hidePageComponents() {
 }
 
 /** Overall function to kick off the app. */
-
 async function start() {
   console.debug("start");
 
@@ -46,7 +43,6 @@ async function start() {
 }
 
 // Once the DOM is entirely loaded, begin the app
-
 const $favoritedStoriesList = $("#favorited-stories-list");
 
 console.warn("HEY STUDENT: This program sends many debug messages to" +
