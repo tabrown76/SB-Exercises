@@ -1,0 +1,26 @@
+#content {
+    margin: 40px;
+    padding: 0;
+}
+
+ul {
+    padding: 0;
+}
+
+label {
+    flex: 0 0 100px;
+    margin-right: 10px;
+}
+
+input {
+    flex: 1;
+    max-width: 300px;    
+}
+
+li {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
