@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ survey.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ survey.title }}</h1>
+<hr>
+
+<h3>{{ survey.instructions }}</h3>
+
+<form action="{{ url_for('question_pages', prefix=prefix, survey=survey, id=id) }}" method="POST">
+    <p>{{ question.question }}</p>
+
+    {% for choice in question.choices %}
+    <input type="radio" name="choice" value="{{ choice }}" onclick="clearTextInput()">{{ choice }}</input>
+    {% endfor %}
+    {% if question.allow_text %}
+    <input type="text" id="textInput" name="choice" oninput="deselectRadioButtons()">
+    {% endif %}
+
+    <br>
+    <input type="submit" class="button" value="Next">
+</form>
+
+{% endblock %}

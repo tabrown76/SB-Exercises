@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Which Survey?{% endblock %}
+
+{% block content %}
+<h1>Choose Your Survey</h1>
+<hr>
+
+{% for prefix, survey in surveys.items() %} 
+
+<a href="{{url_for('question_pages', prefix=prefix, id=0)}}" name="{{prefix}}"><button class="button">{{prefix}}</button></a>
+
+{% endfor %}
+{% endblock %}
