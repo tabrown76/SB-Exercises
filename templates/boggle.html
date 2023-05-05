@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Boggle!{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="form-container">
+            <form action="" method="POST">
+                <input type="text" placholder="Guess a Word" name="guess">
+                <button id="guess" type="submit">Guess!</button>
+            </form>
+            <ul class="guessed-words"></ul>
+        </div>
+        <div class="table-container">
+            <table>
+                {% for sublist in new_game %}
+                    <tr>
+                        {% for item in sublist %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="score">
+            <p><u>Score</u>:</p><p id="score">0</p>
+        </div>
+        <div class="timer">
+            <p class="clock">60</p>
+            <i class="fa-sharp fa-solid fa-hourglass-start hourglass"></i>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.form-container {
+    position: absolute;
+    top: 20%;
+    left: 12%;
+}
+
+.table-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table {
+    font-size: 5rem;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.timer p {
+    position: relative;
+    font-size: 1.5rem;
+    margin: 0px;
+    text-align: center;
+}
+
+.timer {
+    position: absolute;
+    font-size: 5rem;
+    top: 40%;
+    right: 17%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.score {
+    position: absolute;
+    font-size: 2rem;
+    top: 18%;
+    right: 16%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.score p {
+    display: inline;
+    margin: 5px;
+}
+
+ul {
+    padding: 0;
+    position: relative;
+    text-align: left;
+}
+
+li {
+    list-style-type: none;
+    font-size: 1.5rem;
+}
