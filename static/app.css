@@ -16,7 +16,7 @@ input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
-  width: 300px;
+  width: auto;
 }
 
 .btn {
@@ -24,6 +24,7 @@ input[type="text"] {
   border-radius: 4px;
   cursor: pointer;
   width: 100px;
+  margin: 5px;
 }
   
 .user {
@@ -62,4 +63,17 @@ img {
 .btn-light {
   border: 1px solid teal;
   color: teal;
+}
+
+h3 {
+  margin-top: 10px;
+}
+
+form .button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-container {
+  max-width: 33vw;
 }

@@ -15,6 +15,17 @@
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </div>
+        <h3>Posts</h3>
+        <div class="post-container">
+            <ul>
+                {%for post in posts %}
+                {% if user.id == post.user_id %}
+                    <li><a href="/posts/{{post.id}}">{{post.title}}</a></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            <a href="/users/{{user.id}}/posts/new"><button class="btn btn-primary">Add Post</button></a>
+        </div>
     </div>
 </div>
 {% endblock %}

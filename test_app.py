@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from app import app
-from models import db, User
+from models import db, User, Post
 
 # Use test database and don't clutter tests with SQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
@@ -67,3 +67,22 @@ class UserViewsTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertIn('Dos', html)
+
+class PostViewsTestCase(TestCase):
+    """Tests for views for Posts."""
+
+    def setUp(self):
+        """Add sample post."""
+
+        Post.query.delete()
+
+        post = Post(title='title', content='content', user_id=1)
+        db.session.add(post)
+        db.session.commit()
+
+        self.post_id = post.id
+
+    def tearDown(self):
+        """Clean up any fouled transaction."""
+
+        db.session.rollback()
