@@ -13,6 +13,13 @@
         <label for="content">Content</label>
         <textarea name="content"></textarea>
 
+        {% for tag in tags %}
+        <div>
+            <input type="checkbox" id="{{tag.id}}" name="tags" value="{{tag.id}}">
+            <label for="tags">{{tag.name}}</label><br>
+        </div>
+        {% endfor %}
+
         <div class="button-container">
             <a href="/users/{{user.id}}" class="btn btn-light">Cancel</a>
             <button type="submit" class="btn btn-success">Add</button>

@@ -7,7 +7,12 @@
     <h1>{{post.title}}</h1>
 
     <p>{{post.content}}</p>
-    <h6><i>By {{user.get_full_name()}}</i></h6>
+    <p><i>By {{user.get_full_name()}} on {{post.created_at.strftime("%m-%d-%Y, %H:%M")}}</i></p>
+    <p><b>Tags:</b>
+        {% for tag in post.tags %}     
+        <span class="badge bg-primary"><i>{{tag.name}}</i></span>
+        {% endfor %}
+    </p>
 </div>
 <div class="button-container">
     <a href="/users"><button class="btn btn-light">Cancel</button></a>

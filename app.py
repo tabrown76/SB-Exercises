@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, session
 from flask_debugtoolbar import DebugToolbarExtension
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 from sqlalchemy import text
 
 app = Flask(__name__)
@@ -79,8 +79,9 @@ def delete_user(user_id):
 @app.route('/users/<int:user_id>/posts/new')
 def add_post_page(user_id):
     user = User.query.get_or_404(user_id)
+    tags = Tag.query.all()
 
-    return render_template('create-posts.html', user=user)
+    return render_template('create-posts.html', user=user, tags=tags)
 
 @app.route('/users/<int:user_id>/posts/new', methods=["POST"])
 def add_post(user_id):
@@ -88,10 +89,18 @@ def add_post(user_id):
 
     title = request.form['title']
     content = request.form['content']
+    tag_ids = request.form.getlist('tags')
 
     new_post = Post(title=title, content=content, user_id=user.id)
 
     db.session.add(new_post)
+    db.session.commit()
+
+    for tag_id in tag_ids:
+        post_tag = PostTag(post_id=new_post.id, tag_id=int(tag_id))
+
+        db.session.add(post_tag)
+        
     db.session.commit()
 
     return redirect(f'/users/{user.id}')
@@ -106,8 +115,9 @@ def posts_page(post_id):
 @app.route('/posts/<int:post_id>/edit')
 def edit_posts_page(post_id):
     post = Post.query.get_or_404(post_id)
+    tags = Tag.query.all()
 
-    return render_template('edit-posts.html', post=post)
+    return render_template('edit-posts.html', post=post, tags=tags)
 
 @app.route('/posts/<int:post_id>/edit', methods=['POST'])
 def edit_posts(post_id):
@@ -115,8 +125,14 @@ def edit_posts(post_id):
 
     post.title = request.form['title']
     post.content = request.form['content']
+    new_tag_ids = [int(id) for id in request.form.getlist('tags')]
 
-    db.session.commit()
+    PostTag.query.filter_by(post_id=post_id).delete(synchronize_session='fetch')
+    
+    for tag_id in new_tag_ids:
+        db.session.add(PostTag(post_id=post_id, tag_id=tag_id))
+
+    db.session.commit() 
 
     return redirect(f'/posts/{post.id}')
 
@@ -128,3 +144,55 @@ def delete_post(post_id):
     db.session.commit()
 
     return redirect('/users')
+
+@app.route('/tags')
+def show_tags():
+    tags = Tag.query.all()
+
+    return render_template('tags.html', tags=tags)
+
+@app.route('/tags/new')
+def create_tag_page():
+    return render_template('create-tags.html')
+
+@app.route('/tags/new', methods=['POST'])
+def create_tag():
+    name = request.form['name']
+
+    new_tag = Tag(name=name)
+
+    db.session.add(new_tag)
+    db.session.commit()
+
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>/edit')
+def edit_tag_page(tag_id):
+    tag = Tag.query.get_or_404(tag_id)
+
+    return render_template('edit-tags.html', tag=tag)
+
+@app.route('/tags/<int:tag_id>/edit', methods=['POST'])
+def edit_tag(tag_id):
+    tag = Tag.query.get_or_404(tag_id)
+    
+    tag.name = request.form['name']
+
+    db.session.commit()
+
+    return redirect('/tags')
+
+@app.route('/tags/<int:tag_id>')
+def posts_with_tag(tag_id):
+    tag = Tag.query.get_or_404(tag_id)
+
+    return render_template('tagged-posts.html', tag=tag)
+
+@app.route('/tags/<int:tag_id>/delete', methods=['POST'])
+def delete_tag(tag_id):
+    tag = Tag.query.get_or_404(tag_id)
+
+    db.session.delete(tag)
+    db.session.commit()
+
+    return redirect('/tags')

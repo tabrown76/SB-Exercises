@@ -77,3 +77,7 @@ form .button-container {
 .form-container {
   max-width: 33vw;
 }
+
+span {
+  margin: 2px;
+}
