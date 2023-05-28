@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Adopt-A-Pet!{% endblock %}
+
+{% block content %}
+<h1>Adoptions-R-Us</h1>
+<hr>
+
+<div class="grid-container">
+    {% for pet in pets %}
+    <div class="pet-container">
+        <div class="pet-photo">
+            <img class="pet-image" src="{{pet.photo_url}}" alt="{{pet.name}} {{pet.species}}">
+        </div>
+        <p><a href="/{{pet.id}}">{{pet.name}}</a>{% if pet.available %}<b> is available!</b>{% endif %}</p>
+    </div>
+    {% endfor %}
+</div>
+<a href="/add"><button class="btn btn-success">Add a Pet</button></a>
+{% endblock %}

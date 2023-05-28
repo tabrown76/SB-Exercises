@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{pet.name}}{% endblock %}
+
+{% block content %}
+<h1>{{pet.name}}</h1>
+<hr>
+
+<div class="form-container">
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="view-pet pet-container">
+            <div>
+                <p>{{pet.name}} is{% if pet.available %} a very adoptable{% endif %} {{pet.age}} year old {{pet.species}}.</p>
+            </div>
+            <div>
+                <img class="profile-photo" src="{{pet.photo_url}}" alt="{{pet.name}} {{pet.species}}">
+            </div>
+            <div>
+                <p>{{form.photo_url.label}}</p>
+                <p>{{form.photo_url}}</p>
+                <p>{{form.notes.label}}</p>
+                <p>{{form.notes}}</p>
+                <button type="submit" class="btn btn-sm btn-danger">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="button-container">
+    <a href="/" class="btn btn-secondary">Back</a>
+    {% if pet.available %}
+    <form action="/{{pet.id}}/adopt" method="POST" style="display: inline">
+        {{form.hidden_tag()}}
+        <button class="btn btn-success">Adopt!</button>
+        {% else %}
+        <form action="/{{pet.id}}/unadopt" method="POST" style="display: inline">
+            {{form.hidden_tag()}}
+            <button class="btn btn-danger">Un-Adopt</button>
+        </form>
+    </form>    
+    {% endif %}
+</div>
+{% endblock %}
