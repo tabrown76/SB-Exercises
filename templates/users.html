@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>{{user.username}}</h1>
+<hr>
+
+<div class="container">
+    <p>
+        <b>Name:</b> {{user.first_name}} {{user.last_name}}
+    </p>
+    <p>
+        <b>E-mail:</b> {{user.email}}
+    </p>
+</div>
+<div class="container">
+    {% for feedback in feedback %}
+    <div class="card text-bg-secondary mb-3">
+        <div class="card-body">
+            <a href="/feedback/{{feedback.id}}/update" class="card-title">{{feedback.title}}</a>
+            <p class="card-text">{{feedback.content}}</p>
+        </div> 
+        <form action="/feedback/{{feedback.id}}/delete" method="POST">
+            <div class="position-absolute top-0 end-0 p-2">
+                <button type="submit" class="btn text-light text-decoration-none bg-transparent border-0">X</button>
+            </div>
+        </form>         
+    </div>
+    {% endfor %}
+</div>
+<form action="/users/{{user.username}}/delete" method="POST">
+    <button class="btn btn-danger" type="submit">Delete Account</button>
+</form>
+{% endblock %}

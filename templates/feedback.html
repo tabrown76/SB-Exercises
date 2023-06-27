@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+<h1>Feedback</h1>
+<hr>
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    
+    {% for field in form
+        if field.widget.input_type != 'hidden' %}
+        <p>
+            {{field.label}}
+            {{field(class_="form-control")}}
+
+            {% for error in field.errors %}
+            <span class="form-text text-danger">{{error}}</span>
+            {% endfor %}
+        </p>
+    {% endfor %}
+
+    <a href="{{url_for('users', username=session['user_username'])}}" class="btn btn-danger">Back</a>
+    <button class="btn btn-dark" type="submit">Submit Feedback</button>
+</form>    
+{% endblock %}
