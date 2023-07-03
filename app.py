@@ -1,11 +1,12 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, g
+from flask import Flask, render_template, request, flash, redirect, session, g, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm, LoginForm, MessageForm
+from forms import UserAddForm, LoginForm, MessageForm, EditUserForm
 from models import db, connect_db, User, Message
+from utils import populate_form
 
 CURR_USER_KEY = "curr_user"
 
@@ -213,8 +214,28 @@ def stop_following(follow_id):
 @app.route('/users/profile', methods=["GET", "POST"])
 def profile():
     """Update profile for current user."""
+    if not g.user:
+        flash("Access unauthorized.", 'danger')
+        return redirect('/')
 
-    # IMPLEMENT THIS
+    form = EditUserForm()
+    user = User.query.get_or_404(g.user.id)
+
+    if form.validate_on_submit():
+        password = form.password.data
+
+        if User.authenticate(user, password):
+            form_data = {field.name: field.data for field in form if field.name != 'password'}
+            for field, value in form_data.items():
+                setattr(user, field, value)
+            db.session.commit()
+            flash("Updated profile.", 'info')
+            return redirect(url_for('users_show', user_id=user.id))
+
+    elif request.method == 'GET':
+        populate_form(form, user)
+
+    return render_template('users/edit.html', form=form, user=user)
 
 
 @app.route('/users/delete', methods=["POST"])
