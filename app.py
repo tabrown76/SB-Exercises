@@ -225,14 +225,20 @@ def profile():
     return render_template('users/edit.html', form=form, user=user)
 
 
-@app.route('/users/delete', methods=["POST"])
+@app.route('/users/delete/<int:user_id>', methods=["POST"])
 @login_required
-def delete_user():
+def delete_user(user_id):
     """Delete user."""
 
-    do_logout()
+    user = User.query.get_or_404(user_id)
 
-    db.session.delete(g.user)
+    if user.id != g.user.id:
+        abort(403) 
+
+    else:
+        do_logout()
+
+    db.session.delete(user)
     db.session.commit()
 
     return redirect("/signup")
@@ -306,10 +312,6 @@ def show_likes(user_id):
 
     user = User.query.get_or_404(user_id)
     likes = user.likes
-
-    if request.method == 'POST':
-
-        return render_template('/users/show-likes.html', user=user, likes=likes)
 
     return render_template('/users/show-likes.html', user=user, likes=likes)
 
