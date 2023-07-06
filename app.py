@@ -289,18 +289,29 @@ def messages_like(message_id):
     like_exists = Likes.query.filter_by(user_id=user, message_id=msg.id).first()
 
     if like_exists:
-        db.session.delete(like_exists)
-        db.session.commit()
-
-        return redirect('/')
+        db.session.delete(like_exists)    
     
-    new_like = Likes(user_id=user, message_id=msg.id)
+    else:
+        new_like = Likes(user_id=user, message_id=msg.id)
+        db.session.add(new_like)
 
-    db.session.add(new_like)
     db.session.commit()
 
-    return redirect('/')
+    return redirect(request.referrer or '/')
 
+@app.route('/users/<int:user_id>/likes', methods=['GET', 'POST'])
+@login_required
+def show_likes(user_id):
+    """Show liked messages."""
+
+    user = User.query.get_or_404(user_id)
+    likes = user.likes
+
+    if request.method == 'POST':
+
+        return render_template('/users/show-likes.html', user=user, likes=likes)
+
+    return render_template('/users/show-likes.html', user=user, likes=likes)
 
 ##############################################################################
 # Homepage and error pages
