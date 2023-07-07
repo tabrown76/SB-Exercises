@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request, flash, redirect, session, g, url_for
+from flask import Flask, render_template, request, flash, redirect, session, g, url_for, abort
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
@@ -280,6 +280,10 @@ def messages_destroy(message_id):
     """Delete a message."""
 
     msg = Message.query.get(message_id)
+
+    if g.user.id != msg.user.id:
+        abort(403)
+
     db.session.delete(msg)
     db.session.commit()
 

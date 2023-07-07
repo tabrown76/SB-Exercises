@@ -6,7 +6,7 @@
       {% for message in messages %}
 
         <li class="list-group-item">
-          <a href="{{url_for('messages_show', message_id=msg.id)}}" class="message-link"></a>
+          <a href="{{url_for('messages_show', message_id=message.id)}}" class="message-link"></a>
 
           <a href="{{url_for('users_show', user_id=user.id)}}">
             <img src="{{ user.image_url }}" alt="user image" class="timeline-image">
