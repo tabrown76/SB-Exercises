@@ -1,1 +1,11 @@
 # Broken App Issues
+-moved app.listen to separate file
+-adjusted variable prefixes/names
+-more robust error handling
+-changed from 'post' to 'get'
+-fixed errors not being properly caught
+-implemented validation for !developers and 404 developers
+-corrected json response
+-correctly handled async/await
+-correctly retrieved/formatted usernames
+-added documentation
