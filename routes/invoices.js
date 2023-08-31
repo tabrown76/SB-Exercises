@@ -19,27 +19,25 @@ router.get('/:id', async (req, res, next) => {
         const {id} = req.params;
         const results = await db.query(
             `SELECT id, amt, paid, add_date, paid_date, companies.code AS code, companies.name AS name, companies.description AS description
-            FROM invoices JOIN companies ON invoices.comp_code=companies.code WHERE id=$1`, [id]
+            FROM invoices LEFT JOIN companies ON invoices.comp_code=companies.code WHERE id=$1`, [id]
         )
         if(results.rows.length === 0) throw new ExpressError(`Can't find invoice with id ${id}`, 404);
 
-        const formattedResults = results.rows.map(row => {
-            return {
-                invoice: {
-                    id: row.id,
-                    amt: row.amt,
-                    paid: row.paid,
-                    add_date: row.add_date,
-                    paid_date: row.paid_date,
-                    company: {
-                        code: row.code,
-                        name: row.name,
-                        description: row.description
-                }
-                }
+        const row = results.rows[0];
+        const formattedResult = {
+            id: row.id,
+            amt: row.amt,
+            paid: row.paid,
+            add_date: row.add_date,
+            paid_date: row.paid_date,
+            company: {
+                code: row.code,
+                name: row.name,
+                description: row.description
             }
-        })
-        return res.json(formattedResults);
+        };  
+
+        return res.json({invoice: formattedResult});
     } catch(err) {
         return next(err);
     }
@@ -59,12 +57,20 @@ router.post('/', async (req, res, next) =>{
 router.put('/:id', async (req, res, next) => {
     try {
         const {id} = req.params;
-        const {amt} = req.body;
-        const results = await db.query(
-            `UPDATE invoices SET amt=$1 WHERE id=$2 RETURNING *`, [amt, id]
-        )
-        if(results.rows.length === 0) throw new ExpressError(`Can't update invoice with id ${id}`, 404);
-        return res.send({invoice: results.rows[0]});
+        const {amt, paid} = req.body;
+        if(paid === true){
+            const results = await db.query(
+                `UPDATE invoices SET amt=amt - $1, paid_date=NOW() WHERE id=$2 RETURNING *`, [amt, id]
+            )
+            if(results.rows.length === 0) throw new ExpressError(`Can't update invoice with id ${id}`, 404);
+            return res.send({invoice: results.rows[0]});
+        } else {
+            const results = await db.query(
+                `UPDATE invoices SET amt=amt + $1, paid_date=null WHERE id=$2 RETURNING *`, [amt, id]
+            )
+            if(results.rows.length === 0) throw new ExpressError(`Can't update invoice with id ${id}`, 404);
+            return res.send({invoice: results.rows[0]});            
+        }        
     } catch(err) {
         return next(err);
     }
