@@ -23,6 +23,7 @@ router.post('/login', async function(req, res, next) {
         }
         throw new ExpressError('Incorrect username/password', 400);
     } catch(e) {
+        console.log(e.message)
         return next(e);
     }
 })
