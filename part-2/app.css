@@ -1,0 +1,33 @@
+#tweet {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 2px 2px 12px #aaa;
+    width: 300px;
+    position: relative;
+}
+
+#username {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+#name {
+    font-size: 14px;
+    color: grey;
+    margin-bottom: 4px;
+}
+
+#date {
+    font-size: 12px;
+    color: #aaa;
+    position: absolute; 
+    top: 16px;          
+    right: 16px;
+}
+
+#message {
+    font-size: 16px;
+}
