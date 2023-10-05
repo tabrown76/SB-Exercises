@@ -1,0 +1,8 @@
+.BoxList {
+    margin: 40px;
+}
+
+.BL-box {
+    display: flex;
+    flex-wrap: wrap;
+}

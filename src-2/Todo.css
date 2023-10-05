@@ -1,0 +1,16 @@
+.Todo {
+    text-align: left;
+}
+
+.Todo-todo {
+    margin: 5px;
+    position: relative;
+}
+
+.Todo-button {
+    color: red;
+    font-size: x-small;
+    margin: 5px;
+    background: transparent;
+    border: none;
+}

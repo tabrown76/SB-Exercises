@@ -1,0 +1,22 @@
+.Box {
+    box-shadow: 10px 5px 5px darkgrey;
+    border: solid black;
+    border-radius: 5px;
+    position: relative;
+    margin:10px;
+}
+
+.BoxButton {
+    border-style: none;
+    color: red;
+    font-size: x-small;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    background: transparent;
+}
+
+.BoxButton:hover {
+    color: #fff;
+}
