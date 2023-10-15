@@ -1,0 +1,28 @@
+.Peanuts {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.Peanuts-h1 {
+    color: rgb(139, 69, 19);
+}
+
+.peanut {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url("./Peanut.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  animation: rain linear infinite;
+}
+
+@keyframes rain {
+  to {
+    transform: translateY(100vh);
+  }
+}
+  

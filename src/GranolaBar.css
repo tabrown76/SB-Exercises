@@ -1,0 +1,17 @@
+.GranolaBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.GranolaBar-image {
+    width: 300px;
+    height: auto;
+    max-width: 100%;
+    border-radius: 50%;
+}
+
+.GranolaBar-image-text {
+    color: chocolate;
+    font-size: 3rem;
+}
