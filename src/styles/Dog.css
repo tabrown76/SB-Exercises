@@ -1,0 +1,56 @@
+.Dog {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.Dog-h1 {
+  font-size: 2em;
+  margin: auto;
+}
+
+.Dog-content {
+  display: flex;  
+  justify-content: center;
+  align-items: center; 
+}
+
+.Dog-image-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.Dog-back-link {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-top: 10px; 
+  text-decoration: none; 
+}
+  
+.Dog-image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  margin: 20px;  
+  border-radius: 10px;
+}
+
+.Dog-p {
+  font-size: 1.2em;
+  flex: 1;  
+  margin: 0 20px;  
+}
+
+.Dog-ul {
+  flex: 1;  
+  list-style: disc;
+  padding-left: 40px;
+  margin: 0 20px;  
+}
+
+.Dog-li {
+  margin: 5px 0;
+  list-style: none;
+}
+  

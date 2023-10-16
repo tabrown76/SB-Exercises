@@ -1,0 +1,35 @@
+.Dogs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.Dogs-h1 {
+    text-align: center;
+}
+
+.Dogs hr {
+    width: 80%;  
+}
+
+.Dogs-images {
+    display: flex;  
+    flex-wrap: wrap; 
+    justify-content: center; 
+}
+
+.Dogs-image {
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.Dogs-image:hover {
+    transform: scale(1.1);
+}

@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {Routes, Route, Navigate} from "react-router-dom";
+import './styles/App.css';
+import Navbar from "./Navbar";
+import Dog from "./Dog";
+import Dogs from "./Dogs";
+import db from "./db.json";
+import Colors from "./Colors";
+import Color from "./Color";
+import Home from "./Home";
 
-function App() {
+function App({data = db}) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Routes>
+        <Route path="/dogs/:name" element={<Dog data={data} />} />
+        <Route path="/dogs" element={<Dogs data={data} />} />
+        <Route path="/colors/:color" element={<Color />} />
+        <Route path="/colors" element={<Colors />} />
+        <Route path="/" element={<Home />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </div>
   );
 }

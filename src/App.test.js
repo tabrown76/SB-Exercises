@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import Router from "react-router";
+Router.useParams = jest.fn();
+import DogDetails from './DogDetails';
+
+import { render, screen, waitFor } from '@testing-library/react';
 
 test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  Router.useParams.mockReturnValue({a: "b"});	
+  render(<DogDetail />)
 });
